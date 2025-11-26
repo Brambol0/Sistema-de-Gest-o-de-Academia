@@ -1,7 +1,6 @@
-CREATE DATABASE academia;
+CREATE DATABASE IF NOT EXISTS academia;
 USE academia;
 
--- Tabela ALUNO
 CREATE TABLE aluno (
     id_cliente INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100),
@@ -9,7 +8,6 @@ CREATE TABLE aluno (
     idade INT
 );
 
--- Tabela PLANO
 CREATE TABLE plano (
     id_plano INT PRIMARY KEY AUTO_INCREMENT,
     semanal VARCHAR(30),
@@ -19,15 +17,6 @@ CREATE TABLE plano (
     FOREIGN KEY (id_cliente) REFERENCES aluno(id_cliente)
 );
 
--- Tabela INSTRUTOR
-CREATE TABLE instrutor (
-    id_instrutor INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(100),
-    especialidade VARCHAR(100),
-    cref INT
-);
-
--- Tabela TREINO
 CREATE TABLE treino (
     id_treino INT PRIMARY KEY AUTO_INCREMENT,
     treino1 DATE,
@@ -37,7 +26,13 @@ CREATE TABLE treino (
     FOREIGN KEY (id_plano) REFERENCES plano(id_plano)
 );
 
--- Tabela AVALIACAO (derivada da 2FN)
+CREATE TABLE instrutor (
+    id_instrutor INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100),
+    especialidade VARCHAR(100),
+    CREF INT
+);
+
 CREATE TABLE avaliacao (
     id_cliente INT,
     id_instrutor INT,
@@ -48,7 +43,6 @@ CREATE TABLE avaliacao (
     FOREIGN KEY (id_instrutor) REFERENCES instrutor(id_instrutor)
 );
 
--- Tabela RESULTADO_CLIENTE (gerada pela normalização da 2FN)
 CREATE TABLE resultado_cliente (
     id_cliente INT PRIMARY KEY,
     perda_de_peso VARCHAR(50),
